@@ -1,11 +1,12 @@
 # InforQA – Test Automation Framework (starter)
+Self-initiated project to build hands-on test automation engineering skills, developed with AI assistance and run against the public Infor website.
 
 A beginner-friendly web test automation framework, built with **Java, Selenium, Cucumber (BDD) and Maven**.
 It runs simple, read-only health checks against the public Infor website (https://www.infor.com).
 
 ## One-time setup (about 20 minutes)
 
-1. **Install Java 17 (JDK)** – download "Temurin 17" from https://adoptium.net and install it.
+1. **Install Java 17 or higher (JDK)** – download "Temurin 21 (LTS)" from https://adoptium.net and install it (tested with Java 21).
 2. **Install Maven** – https://maven.apache.org/download.cgi (or `brew install maven` on Mac, `choco install maven` on Windows).
 3. **Install Google Chrome** (the framework downloads the matching driver automatically).
 4. **Install a code editor** – IntelliJ IDEA Community or VS Code (with the "Extension Pack for Java").
