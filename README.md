@@ -1,8 +1,18 @@
-# InforQA – Test Automation Framework (starter)
+# InforQA – Test Automation Framework
+
 Self-initiated project to build hands-on test automation engineering skills, developed with AI assistance and run against the public Infor website.
 
-A beginner-friendly web test automation framework, built with **Java, Selenium, Cucumber (BDD) and Maven**.
+A beginner-friendly web test automation framework, built with **Java, Selenium, Cucumber (BDD), Maven and Allure**.
 It runs simple, read-only health checks against the public Infor website (https://www.infor.com).
+
+## Features
+
+* Page Object Model + BDD (plain-English tests in `.feature` files)
+* Config-driven (website, browser, headless mode, timeouts in `config.properties`)
+* Screenshot attached automatically on failure
+* **Allure reports** (dashboard, charts, history, screenshots, tags)
+* **Parallel execution** (3 browsers at once)
+* Optional **screen video recording** and **step-by-step screenshots**
 
 ## One-time setup (about 20 minutes)
 
@@ -11,10 +21,12 @@ It runs simple, read-only health checks against the public Infor website (https:
 3. **Install Google Chrome** (the framework downloads the matching driver automatically).
 4. **Install a code editor** – IntelliJ IDEA Community or VS Code (with the "Extension Pack for Java").
 5. Check it worked – open a terminal and run:
-   ```
+
+```
    java -version
    mvn -version
    ```
+
    Both should print a version number (Java 17 or higher).
 
 ## Run the tests
@@ -22,48 +34,61 @@ It runs simple, read-only health checks against the public Infor website (https:
 Open a terminal **inside this folder** and run:
 
 ```
-mvn test
+mvn clean test
 ```
 
-The first run downloads libraries, so it takes a few minutes. After that:
+The first run downloads libraries, so it takes a few minutes. (`clean` removes old results first.)
 
-| What you want | Command |
-|---|---|
-| Run everything | `mvn test` |
-| Only quick checks | `mvn test -Dcucumber.filter.tags="@smoke"` |
-| Watch the browser (not hidden) | `mvn test -Dheadless=false` |
-| Use Firefox | `mvn test -Dbrowser=firefox` |
+|What you want|Command|
+|-|-|
+|Run everything (3 in parallel)|`mvn clean test`|
+|Only quick checks|`mvn clean test -Dcucumber.filter.tags="@smoke"`|
+|One test at a time|`mvn clean test -Dcucumber.execution.parallel.enabled=false`|
+|Watch the browser|`mvn clean test -Dheadless=false -Dcucumber.execution.parallel.enabled=false`|
+|Use Firefox|`mvn clean test -Dbrowser=firefox`|
+|Screenshot after every step|`mvn clean test -DstepScreenshots=true`|
+|Record a screen video|`mvn clean test -Dheadless=false -Drecord=true -Dcucumber.execution.parallel.enabled=false`|
 
 ## See the results
 
-Open `target/cucumber-reports/report.html` in your browser. Failed scenarios include a screenshot.
+**Allure report (recommended)** – after the tests finish, run:
+
+```
+mvn allure:serve
+```
+
+A browser tab opens with the dashboard. Press `Ctrl+C` in the terminal to stop the report server.
+The first time, Maven downloads the Allure tool, which takes a minute.
+
+**Simple HTML report** – open `target/cucumber-reports/report.html`.
+
+**Videos** (only when recording is on) – `target/videos/\*.avi`. These use a screen-capture codec; play them with VLC (https://www.videolan.org); Can now play in Windows Media Player too.
 
 ## How the project is organised
 
 ```
 src/test/resources/features/   <- Tests written in plain English (.feature files)
-src/test/java/.../steps/       <- Java code behind each plain-English sentence
+src/test/java/.../steps/       <- Java code behind each plain-English sentence, plus Hooks
 src/test/java/.../pages/       <- Page Objects: how to find things on each page
-src/test/java/.../core/        <- Browser start-up and settings
+src/test/java/.../core/        <- Browser start-up, settings, video recorder
 src/test/java/.../runner/      <- The "start button" Maven runs
-src/test/resources/config.properties <- Website address, browser, timeouts
+src/test/resources/config.properties         <- Website address, browser, timeouts, options
+src/test/resources/junit-platform.properties <- Reports and parallel settings
 ```
 
-Read the code in this order: `infor_site.feature` -> `InforSteps.java` -> `HomePage.java` -> `BasePage.java` -> `DriverFactory.java`.
+## If a test fails
 
-## If a test fails on the first run
-
-That is normal and part of learning. The website may have changed since this was written.
 Look at the screenshot in the report, then adjust the page address in the `.feature` file
-(the `/products`, `/industries` list) or the element locator in `HomePage.java`.
+or the element locator in the matching Page Object.
 Be considerate: these tests only read pages. Do not add tests that submit forms or send heavy traffic.
 
 ## Roadmap
 
-- [x] Phase 1-3: Framework core + BDD (this starter)
-- [ ] Phase 4: Allure reporting and test-run video
-- [ ] Phase 5: API tests with Rest Assured
-- [ ] Phase 6: Mobile (Appium) and BrowserStack
-- [ ] Phase 7: Dockerfile and GitLab CI/CD pipeline
-- [ ] Phase 8: Kubernetes/Helm Selenium Grid, UiPath bot
-- [ ] Phase 9: AI-assisted failure analysis
+* \[x] Phase 1-3: Framework core + BDD
+* \[x] Phase 4: Allure reporting, parallel execution, screenshots and optional video
+* \[ ] Phase 5: API tests with Rest Assured
+* \[ ] Phase 6: Mobile (Appium) and BrowserStack
+* \[ ] Phase 7: Dockerfile and GitLab CI/CD pipeline
+* \[ ] Phase 8: Kubernetes/Helm Selenium Grid, UiPath bot
+* \[ ] Phase 9: AI-assisted failure analysis
+

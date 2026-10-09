@@ -22,11 +22,10 @@ Feature: Infor website basic health checks
     Then the page should load without an error
 
     Examples:
-      | path                 |
-      | /industries          |
-      | /products            |
-      | /platform            |
-      | /customer-success    |
-      | /partners            |
-      | /about               |
-
+      | path              |
+      | /industries       |
+      | /products         |
+      | /platform         |
+      | /customer-success |
+      | /partners         |
+      | /about            |

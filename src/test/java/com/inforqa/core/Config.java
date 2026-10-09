@@ -39,6 +39,14 @@ public final class Config {
         return Boolean.parseBoolean(get("headless"));
     }
 
+    public static boolean record() {
+        return Boolean.parseBoolean(get("record"));
+    }
+
+    public static boolean stepScreenshots() {
+        return Boolean.parseBoolean(get("stepScreenshots"));
+    }
+
     public static int timeoutSeconds() {
         return Integer.parseInt(get("timeoutSeconds"));
     }
