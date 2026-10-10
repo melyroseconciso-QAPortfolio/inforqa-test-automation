@@ -62,7 +62,7 @@ The first time, Maven downloads the Allure tool, which takes a minute.
 
 **Simple HTML report** – open `target/cucumber-reports/report.html`.
 
-**Videos** (only when recording is on) – `target/videos/\*.avi`. These use a screen-capture codec; play them with VLC (https://www.videolan.org); Can now play in Windows Media Player too.
+**Videos** (only when recording is on) – `target/videos/*.avi`. These are standard AVI files that play in Windows Media Player or VLC.
 
 ## How the project is organised
 
